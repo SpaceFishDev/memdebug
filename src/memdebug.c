@@ -34,14 +34,14 @@ void cleanup_memdebug()
 
 void memdebug_free(void *ptr)
 {
-    free(ptr);
     for (int i = 0; i < alloc_idx; ++i)
     {
-        if (allocations[i].ptr = ptr)
+        if (allocations[i].ptr == ptr)
         {
             allocations[i].free = true;
         }
     }
+    free(ptr);
 }
 
 void *memdebug_malloc(int sz, char *file, int line)
