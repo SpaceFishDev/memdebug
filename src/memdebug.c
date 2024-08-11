@@ -67,3 +67,17 @@ void memdebug_view()
         }
     }
 }
+void *memdebug_realloc(void *ptr, int sz, char *file, int line)
+{
+    void *new = realloc(ptr, sz);
+    for (int i = 0; i < alloc_idx; ++i)
+    {
+        if (allocations[i].ptr == ptr)
+        {
+            allocations[i].ptr = new;
+            allocations[i].file = file;
+            allocations[i].line = line;
+        }
+    }
+    return new;
+}
